@@ -8,6 +8,7 @@
     Your login: <input type = "text" name = "login">
     <br />
     Your password: <input type = "password" name = "password">
+    <br/>
     <input type = "submit" value = "Register" />
 </FORM>
 </body>
