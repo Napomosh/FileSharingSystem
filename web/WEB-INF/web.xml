@@ -76,4 +76,22 @@
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>controller.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>generate</servlet-name>
+        <servlet-class>controller.GenerateLinksServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>generate</servlet-name>
+        <url-pattern>/generate</url-pattern>
+    </servlet-mapping>
 </web-app>

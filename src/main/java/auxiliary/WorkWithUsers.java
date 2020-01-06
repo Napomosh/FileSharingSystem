@@ -6,20 +6,23 @@ package auxiliary;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class WorkWithUsers {
     static synchronized void writeInDB(Object message) throws IOException {
         BufferedWriter dataBaseWriter = new BufferedWriter (new FileWriter
-                ("C:\\java\\fileSharingSystem\\dataBase\\users.txt", true));
+                (WorkWithDirectory.dbPath + "\\users.txt", true));
+
         dataBaseWriter.write(message.toString());
         dataBaseWriter.close();
     }
 
     public static boolean isUserRegistered(String name){
         BufferedReader reader;
+
         try {
             reader = new BufferedReader(new FileReader
-                    ("C:\\java\\fileSharingSystem\\dataBase\\users.txt"));
+                    (WorkWithDirectory.dbPath + "\\users.txt"));
 
             String login;
             while ((login = reader.readLine()) != null) {
@@ -29,28 +32,32 @@ public class WorkWithUsers {
                     return true;
                 }
             }
+
             reader.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
              System.out.println(e.getMessage());
          }
         return false;
     }
 
     public static boolean isAuthDataValid(String name, String password){
-        BufferedReader reader = null;
+        BufferedReader reader;
+
         try {
-            reader = new BufferedReader(new FileReader
-                    ("C:\\java\\fileSharingSystem\\dataBase\\users.txt"));
+            reader = new BufferedReader(new FileReader(WorkWithDirectory.dbPath + "\\users.txt"));
 
             String accountData;
             while ((accountData = reader.readLine()) != null) {
-                if (accountData.split("&")[0].equals(name) && accountData.split("&")[1].equals(password)) {
+                if (accountData.split("&")[0].equals(name) && accountData.split("&")[1].equals(password)){
                     reader.close();
                     return true;
                 }
             }
+
             reader.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
            System.out.println(e.getMessage());
         }
         return false;
@@ -59,13 +66,16 @@ public class WorkWithUsers {
     public static void addNewUser(String name, String password){
         StringBuilder data = new StringBuilder();
         data.append(name).append("&").append(password).append("\n");
+
         try {
             writeInDB(data);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
+            WorkWithDirectory.writeInLog(new Date().toString() + " In method addNewUser in class WorkWithUsers");
             System.out.println(e.getMessage());
         }
 
-        String pathToNewDir = "C:\\java\\fileSharingSystem\\dirs" + "\\" + name;
+        String pathToNewDir = WorkWithDirectory.dirPath + "\\" + name;
         new File(pathToNewDir).mkdir();
 
         data.delete(0, data.length());
@@ -82,18 +92,21 @@ public class WorkWithUsers {
     public static ArrayList<String> getAllUsers(){
         BufferedReader reader;
         ArrayList<String> res = new ArrayList<>();
+
         try {
-            reader = new BufferedReader(new FileReader
-                    ("C:\\java\\fileSharingSystem\\dataBase\\directoriesOfUsers.txt"));
+            reader = new BufferedReader(new FileReader(WorkWithDirectory.dbPath + "\\directoriesOfUsers.txt"));
 
             String tmp;
             while ((tmp = reader.readLine()) != null) {
                 tmp = tmp.split("&")[0];
                 res.add(tmp);
             }
+
             reader.close();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println(e.getMessage());
+            WorkWithDirectory.writeInLog(new Date().toString() + " In method getAllUsers in class WorkWithUsers");
 //            res.add("Somthing was wrong!");
         }
         return res;

@@ -26,4 +26,4 @@ tree.onclick = function (event) {
         event.target.classList.add('show');
         event.target.classList.remove('hide');
     }
-}
+};

@@ -17,6 +17,7 @@ public class MainServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
+
         if(session == null || session.getAttribute("userName") == null){
             String path = req.getContextPath() + "/login";
             resp.sendRedirect(path);
@@ -27,8 +28,8 @@ public class MainServlet extends HttpServlet{
 
             ArrayList<String> dirs = WorkWithDirectory.getAllAvailableDirectoriesForUserWithoutMod(userName); //берем все директории,
             // включая расшаренные
-            String[][] userFiles = new String[dirs.size()][]; //первое измерение - имя директории, второе - файлы в этой
-            // директории
+            String[][] userFiles = new String[dirs.size()][]; //первое измерение - имя директории (лежит в первом столбце,
+            //со второго идут файлы, второе - файлы в этой директории
 
             for (int i = 0; i < dirs.size(); i++) {
                 userFiles[i] = WorkWithDirectory.getListOfFiles(dirs.get(i));
@@ -39,9 +40,13 @@ public class MainServlet extends HttpServlet{
                 }
             }
 
+            ArrayList<String> links = WorkWithDirectory.getAllLinks(userName);
+
+            req.setAttribute("links", links);
             req.setAttribute("files", userFiles);
             req.setAttribute("path", dirPath);
             req.setAttribute("dirs", WorkWithDirectory.getAllEditableDirectoryForUsers(userName));
+
             ArrayList<String> users = WorkWithUsers.getAllUsers();
             req.setAttribute("users", users);
 

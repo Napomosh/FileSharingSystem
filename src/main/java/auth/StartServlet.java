@@ -14,8 +14,8 @@ import java.io.IOException;
 public class StartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = "/index.jsp";
         ServletContext servletContext = getServletContext();
+        String path = req.getContextPath() + "/index.jsp";
         RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
         requestDispatcher.forward(req, resp);
     }
@@ -24,6 +24,7 @@ public class StartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String pass = req.getParameter("password");
+
         if(WorkWithUsers.isAuthDataValid(login, pass)){
             HttpSession session = req.getSession();
             session.setAttribute("userName", login);
@@ -31,9 +32,14 @@ public class StartServlet extends HttpServlet {
             String path = req.getContextPath() + "/main";
             resp.sendRedirect(path);
         }
+
         else{
-            String path = req.getContextPath() + "/startPages/repeatLogin.jsp";
-            resp.sendRedirect(path);
+            req.setAttribute("status", "notSuccess");
+
+            ServletContext servletContext = getServletContext();
+            String path = req.getContextPath() + "/index.jsp";
+            RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
+            requestDispatcher.forward(req, resp);
         }
     }
 }

@@ -16,5 +16,6 @@
             }
         %>
     </p>
+    <a href="/main">Back to disk</a>
 </body>
 </html>
