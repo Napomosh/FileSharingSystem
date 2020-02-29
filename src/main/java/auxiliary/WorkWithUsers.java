@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class WorkWithUsers {
-    static synchronized void writeInDB(Object message) throws IOException {
+    private static synchronized void writeInDB(Object message) throws IOException {
         BufferedWriter dataBaseWriter = new BufferedWriter (new FileWriter
                 (WorkWithDirectory.dbPath + "\\users.txt", true));
 
@@ -21,8 +21,7 @@ public class WorkWithUsers {
         BufferedReader reader;
 
         try {
-            reader = new BufferedReader(new FileReader
-                    (WorkWithDirectory.dbPath + "\\users.txt"));
+            reader = new BufferedReader(new FileReader(WorkWithDirectory.dbPath + "\\users.txt"));
 
             String login;
             while ((login = reader.readLine()) != null) {

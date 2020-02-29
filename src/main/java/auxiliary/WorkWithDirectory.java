@@ -14,9 +14,9 @@ import java.util.Random;
 public class WorkWithDirectory {
     private static final String ipAddress = "192.168.43.173";
     private static final String port = ":8080";
+    private static final String linkTemplate =  "http://" + ipAddress + port + "/download?link=";
     static final String dbPath = "C:\\java\\fileSharingSystem\\dataBase";
     static final String dirPath = "C:\\java\\fileSharingSystem\\dirs";
-    public static final String linkTemplate =  "http://" + ipAddress + port + "/download?link=";
 
     static synchronized void writeInDB(Object message, boolean rewriteFile) throws IOException {
         BufferedWriter dataBaseWriter;
@@ -214,7 +214,7 @@ public class WorkWithDirectory {
         return false;
     }
 
-    public static ArrayList<String> getAllEditableDirectoryForUsers(String user){
+    public static ArrayList<String> getAllEditableDirectoryForUser(String user){
         ArrayList<String> allDirs = getAllAvailableDirectoriesForUserWithoutMod(user);
         ArrayList<String> res = new ArrayList<>();
 

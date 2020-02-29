@@ -45,7 +45,7 @@ public class MainServlet extends HttpServlet{
             req.setAttribute("links", links);
             req.setAttribute("files", userFiles);
             req.setAttribute("path", dirPath);
-            req.setAttribute("dirs", WorkWithDirectory.getAllEditableDirectoryForUsers(userName));
+            req.setAttribute("dirs", WorkWithDirectory.getAllEditableDirectoryForUser(userName));
 
             ArrayList<String> users = WorkWithUsers.getAllUsers();
             req.setAttribute("users", users);

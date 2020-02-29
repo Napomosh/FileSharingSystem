@@ -22,9 +22,11 @@ public class DeleteServlet extends HttpServlet {
         else {
             String fileForDelete = req.getParameter("file");
             String nameOfDir = req.getParameter("directory");
-//          String userName = (String) session.getAttribute("userName");
+            String userName = (String) session.getAttribute("userName");
 
-            WorkWithDirectory.doDelete(fileForDelete, nameOfDir);
+            if(WorkWithDirectory.isDirectoryEditable(userName ,nameOfDir)) {
+                WorkWithDirectory.doDelete(fileForDelete, nameOfDir);
+            }
 
             String path = req.getContextPath() + "/main";
             resp.sendRedirect(path);

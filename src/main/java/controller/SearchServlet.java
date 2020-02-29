@@ -29,7 +29,7 @@ public class SearchServlet extends HttpServlet {
 
             req.setAttribute("searchResult", resOfSearching);
 
-            String path = "/pages/searching.jsp";
+            String path = "/main";
             ServletContext servletContext = getServletContext();
             RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher(path);
             requestDispatcher.forward(req, resp);
