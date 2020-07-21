@@ -64,6 +64,7 @@
 
             <executions>
                 <execution>
+                    <phase>clean</phase>
                     <phase>compile</phase>
                 </execution>
             </executions>
