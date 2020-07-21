@@ -64,7 +64,7 @@
 
             <executions>
                 <execution>
-                    <phase>package</phase>
+                    <phase>compile</phase>
                 </execution>
             </executions>
         </plugin>
